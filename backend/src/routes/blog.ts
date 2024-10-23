@@ -103,7 +103,19 @@ blog.get('/bulk', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const posts = await prisma.post.findMany({});
+    const posts = await prisma.post.findMany({
+        select: {
+            content: true,
+            title: true,
+            id: true,
+            author: {
+                select: {
+                    name: true
+                }
+            }
+
+        }
+    });
 
     return c.json(posts);
 })
@@ -114,11 +126,36 @@ blog.get('/:id', async (c) => {
         datasourceUrl: c.env.DATABASE_URL,
     }).$extends(withAccelerate());
 
-    const post = await prisma.post.findUnique({
-        where: {
-            id: Number(id)
+    try {
+        // const param = c.req.param("id");
+        const post = await prisma.post.findFirst({
+            where: {
+                id: Number(id),
+            },
+            select: {
+                content: true,
+                title: true,
+                id: true,
+                author: {
+                    select: {
+                        name: true,
+                    },
+                },
+            },
+        });
+        if (!blog) {
+            c.status(404);
+            return c.json({
+                error: "Blog not found",
+            });
         }
-    });
-
-    return c.json(post);
+        return c.json({
+            post,
+        });
+    } catch (error) {
+        c.status(411);
+        return c.json({
+            error: "Error while fetching blog",
+        });
+    }
 })
