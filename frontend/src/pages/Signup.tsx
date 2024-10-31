@@ -8,7 +8,7 @@ export const Signup = () => {
       <div>
         <div className="flex gap-2 items-center">
           <img className="w-8 h-8 mt-2 ml-2" src={logo} alt="" />
-          <span className="text-2xl font-bold font-mono mt-2">Medium</span>
+          <span className="text-2xl font-bold font-mono mt-2">StorySpace</span>
         </div>
         <Auth type="signup" />
       </div>

@@ -5,12 +5,12 @@ import { Avatar } from "./BlogCard";
 export const Appbar = () => {
   const navigate = useNavigate();
   return (
-    <div className="border-b-2 py-1 border-gray-200 px-10 flex justify-between ">
+    <div className="bg-[#fff1f2] border-b-2 py-1 border-gray-100 px-10 flex justify-between ">
       <div className="flex items-center gap-4">
         <Link to="/blogs">
           <img className="w-9 h-9 cursor-pointer" src={mediumlogo} alt="" />
         </Link>
-        <div className="text-xl font-bold">Medium</div>
+        <div className="text-xl font-bold">StorySpace</div>
       </div>
       <div className="flex items-center gap-3">
         <button
